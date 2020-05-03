@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Note</title>
+    <link href="./cssnote/cssnote.css" rel="stylesheet">
+</head> 
+<body> 
+    <div class="note">
+        <div class="note_head"></div>
+        <div class="note_body">
+            <div class="body_side_left">
+                <div class="add_button">                
+                    <input id ="newTask" class="addTask" type="button" value="+ create task" onclick="openModal()">                     
+                </div>                   
+                    <div id = "Tasks" class ="TaskList"> 
+                        <ul class="context-menu">  
+                            <li class="context-update" onclick = "changeTheme()">
+                                <a href="#"><i class="fa fa-update"></i>Редактировать</a>
+                            </li>
+                            <li class="context-delete" onclick = "deleteTask()">
+                                <a href="#"><i class="fa fa-trash"></i>Удалить</a>
+                            </li>
+                        </ul>                   
+                </div>
+            </div>
+            <div class="body_side_right">
+
+            </div>            
+        </div>
+    </div>
+    <script src="./jsnote/jsnote.js"></script>
+</body>
+</html>

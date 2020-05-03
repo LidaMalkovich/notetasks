@@ -20,16 +20,24 @@ body{
     width: 100%;
     background-color:rgba(118, 94, 170, 1);
     border: 2px solid rgba(70, 55, 102, 1);
+    display: flex;
 }
-.body_side_left{
-    position: relative; 
-    overflow: hidden;
-    width: 30%;
+.column{
+    float: left;
+    padding: 10px;
+    height:100%;
+}
+.left {
+    width: 25%;
     min-width: 20px;
-    min-height: 100%;
     background-color:rgba(199, 182, 236, 1);
-    color:inherit;
+  }  
+.right {
+    width: 75%;
+    min-width: 20px;
+    background-color: rgba(64, 57, 79, 1);
 }
+
 .addTask{
 	box-shadow: 0px 0px 0px 2px #9fb4f2;
 	background:linear-gradient(to bottom, rgba(132, 111, 177, 1) 5%, #476e9e 100%);
@@ -71,8 +79,18 @@ body{
     max-height: 40pt;   
     color: white; 
     margin: 1%;
-    border: 0.5px solid rgba(70, 55, 102, 1); 
-    
+    border: 0.5px solid rgba(70, 55, 102, 1);
+  
+}
+.newTaskId--active{
+    width: 100%;
+    height: 100%;
+    min-height: 20pt;
+    max-height: 40pt;   
+    color: black; 
+    background-color:rgba(250, 240, 250);
+    margin: 1%;
+    border: 0.5px solid rgba(70, 55, 102, 1);     
 }
 .TaskList{
     list-style-type: square;
@@ -82,18 +100,12 @@ body{
     max-width: 150pt;
     margin: 5%;
 }
-.body_side_right{
-    position: relative;    
-    float: right;  
-    width: 70%;
-    background-color: rgba(64, 57, 79, 1);
-    color: inherit;
-}
+
 .context-menu {
     display: none;
     position: absolute;
-    z-index: 10;
-  }
+    z-index: 10; 
+}
 .context-menu--active {
     display: block;
 }
@@ -101,9 +113,18 @@ body{
     color:white;
     font-family:Arial;
     font-size: 8pt;
+    border: 1px solid rgba(250, 240, 250); 
+    background-color: rgba(64, 57, 79, 1); 
 }
 .context-update{
     color:white;
     font-family:Arial;
     font-size: 8pt;
+    border: 1px solid rgba(250, 240, 250);  
+    background-color: rgba(64, 57, 79, 1);
+
+}
+.info_task{
+    color: white;
+    font-size: 15pt;
 }

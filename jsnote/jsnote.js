@@ -77,7 +77,8 @@
       let idUpdate = document.getElementById(idUpdateTask);
 
       idUpdate.contentEditable = "true"; 
-      
+      let active = "newTaskId--active";
+      idUpdate.classList.add(active);      
         ///НАДО ПЕРЕНЕСТИ КУДА-ТО!!!!!!      
         let newTheme = document.getElementById(idUpdateTask).innerHTML;
         findTask.theme = newTheme;
@@ -86,12 +87,7 @@
         SaveJson(arrTask);  
     };
     
-    document.addEventListener( "click", function(e) {
-      var button = e.which || e.button;
-      if ( button === 1 ) {
-        closeContextMenu();
-      }
-    });  
+
     
     
     /* Контексное меню */
@@ -100,7 +96,7 @@
       e.preventDefault();     
       openContextMenu(); 
     }else {
-      closeContextMenu();
+      closeContextMenu();      
       }     
     };
   
@@ -120,6 +116,12 @@
         let active = "context-menu--active";
         menu.classList.remove(active);
       }
+    };
+    function stopUpdate(){
+      let idUpdate = document.getElementById(idUpdateTask);
+      idUpdate.contentEditable = "true"; 
+      let active = "newTaskId--active";
+      idUpdate.classList.remove(active); 
     };
 
     function clickInsideElement(e,className){
@@ -150,10 +152,38 @@
       SaveJson(arrTask);        
   };
 
+  //Открытие окна c текстом о задаче
+  function openTaskInfo(taskId){
+    let divInfo = document.getElementById('info');
+    let findTask = arrTask.find(item => item.id == taskId);
+    let infoText = findTask.text;
+    console.log(infoText);
+    divInfo.textContent = infoText;
+
+   // return alert('нажата!'+ taskId);
+    debugger;
+  };
+
+  /*Действие клика */
+  document.addEventListener( "click", function(e) {
+    var button = e.which || e.button;
+    
+    if(e.className = "newTaskId"){
+      openTaskInfo(event.target.id);
+    } 
+
+    if ( button === 1 ) {
+      closeContextMenu();
+      }
+    
+      debugger;
+  });  
+
+    
 
     //Отправка на сервер
     function SaveJson(){
         let jsonText2 = JSON.stringify(arrTask);
-        return(alert('Изменение сохранилось! '+ jsonText2));
+       // return(alert('Изменение сохранилось! '+ jsonText2));
     };
    // debugger;

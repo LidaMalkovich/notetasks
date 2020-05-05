@@ -1,11 +1,11 @@
-  'use strict'
+    'use strict'
 
   const jsonText1 =  `[
       {
         "id":"1",
         "theme":"Тема 1",
         "inserted":"", 
-        "text": "Они существуют, в основном, чтобы унифицировать синтаксис. На практике часто используется только insertAdjacentHTML. Потому что для элементов и текста у нас есть методы append/prepend/before/after – их быстрее написать, и они могут вставлять как узлы, так и текст.",
+        "info": "Они существуют, в основном, чтобы унифицировать синтаксис. На практике часто используется только insertAdjacentHTML. Потому что для элементов и текста у нас есть методы append/prepend/before/after – их быстрее написать, и они могут вставлять как узлы, так и текст.",
         "order":"1"
     
     
@@ -14,7 +14,7 @@
         "id":"2",
         "theme":"Тема 2",
         "inserted":"", 
-        "text": "Как сделать список Li ссылкой с помощью стилей CSS, чтобы клик был не по самой ссылке, а по блоку списка?",
+        "info": "Как сделать список Li ссылкой с помощью стилей CSS, чтобы клик был не по самой ссылке, а по блоку списка?",
         "order":"2"
       }
     ]`;
@@ -24,9 +24,11 @@
     const ListTasks = document.getElementById('Tasks');
     let menuState = 0;
     var taskItemClassName = 'newTaskId';
+
     //Построение списка задач с json
     const tasks = JSON.parse(jsonText1);   
-    let arrTask = [];
+    let arrTask = [];  
+    let onclickTask;
     let idDeletedTask;
     let idUpdateTask;
 
@@ -59,19 +61,22 @@
           id:  div.id,
           theme: div.innerHTML,
           inserted:"",
-          text:div.innerHTML,
+          info:div.innerHTML,
           order:div.id,
       };  
-
+debugger;
       //Увеличение списка задач
       arrTask.push(newTask);
+    
       //в будущем отправка на сервер
       SaveJson(arrTask); 
+
     };
 
 
     //Редактирование темы
     function changeTheme(){
+      closeContextMenu();
       let findTask = arrTask.find(item => item.id == idUpdateTask);
 
       let idUpdate = document.getElementById(idUpdateTask);
@@ -156,34 +161,134 @@
   function openTaskInfo(taskId){
     let divInfo = document.getElementById('info');
     let findTask = arrTask.find(item => item.id == taskId);
-    let infoText = findTask.text;
-    console.log(infoText);
-    divInfo.textContent = infoText;
 
-   // return alert('нажата!'+ taskId);
-    debugger;
+    if(findTask == undefined) return false;
+
+    let infoText = findTask.info;
+   
+    divInfo.textContent = infoText;
+    let button = document.getElementById('buttonInfo');
+  
+    button.classList.remove("button_info_not_active");
+    button.classList.add("button_info");
+
   };
 
-  /*Действие клика */
-  document.addEventListener( "click", function(e) {
-    var button = e.which || e.button;
-    
-    if(e.className = "newTaskId"){
-      openTaskInfo(event.target.id);
-    } 
 
-    if ( button === 1 ) {
-      closeContextMenu();
+
+    /* Кнопки в боковом меню*/
+    function changeInfo(){
+        let buttonChangeText = document.getElementById('infoSave');
+        let editInfo = document.getElementById('info');
+        let active = "info_task--active";  
+        let buttonchangeStatus =  document.getElementById('infochangeStatus'); 
+        let buttoninfoSend = document.getElementById('infoSendMail'); 
+
+
+          //Добавить проверку на нажатие задачи!!!!!!!!!
+          if(buttonChangeText.value != 'Сохранить'){
+            buttonChangeText.value = 'Сохранить';
+            editInfo.contentEditable = "true"; 
+            editInfo.classList.add(active);
+            
+            //Возможность редактирование кнопок
+            buttonchangeStatus.disabled = true;
+            buttoninfoSend.disabled = true;
+            buttonchangeStatus.classList.add("infobutton_not_active"); 
+            buttoninfoSend.classList.add("infobutton_not_active"); 
+
+          }else{
+
+            let isSave = confirm("Точно сохранить?");
+
+            if (isSave){                     
+              buttonChangeText.value = 'Изменить'; 
+              editInfo.classList.remove(active); 
+              SaveInfo();   
+              //Возможность редактирование кнопок
+              buttonchangeStatus.disabled = false;
+              buttoninfoSend.disabled = false;
+              buttonchangeStatus.classList.remove("infobutton_not_active"); 
+              buttoninfoSend.classList.remove("infobutton_not_active"); 
+            }
+                  
+          } 
+    };
+
+    function changeStatus(){
+
+      return alert('Статус ?');
+    };
+
+    function sendMail(){
+
+      return alert('Почта ?');
+    };
+
+
+  //
+  function SaveInfo(){
+    let idTask = onclickTask;
+    let findTask = arrTask.find(item => item.id == idTask);
+    let elemUpdate = document.getElementById('info');  
+
+    for(let i=0; i<= arrTask.length; i++){
+   
+      if(arrTask[i] == findTask){
+        arrTask[i].info = elemUpdate.innerHTML;
       }
-    
-      debugger;
-  });  
+    }
 
+    SaveJson(arrTask);
+  };
+
+
+  /*Действие клика нажатие на контекное меню*/
+  document.querySelectorAll("context").forEach(function(el){
+    el.addEventListener( "click", function(e) {
+        var button = e.which || e.button;
+
+
+        if ( button === 1 ) {
+          closeContextMenu();
+          }
+        
+          // debugger;
+      });  
+  });
+  
+
+
+    /*Действие клика на нажатие на div */
+    document.querySelectorAll("div").forEach(function(el){
+      el.addEventListener( "click", function(e) {
+            var button = e.which || e.button;
     
+         
+     
+            if(this.tagName=='DIV' && this.id !='buttonInfo' && event.target.id != 'infoSave'
+            
+            ){
+              if(event.target.id.match('[0-9]')){
+          
+              openTaskInfo(event.target.id); 
+              onclickTask = event.target.id;               
+            }
+          }
+    debugger;
+            if ( button === 1 ) {
+              closeContextMenu();
+              }
+            
+              // debugger;
+          });  
+      });
+
+
 
     //Отправка на сервер
     function SaveJson(){
         let jsonText2 = JSON.stringify(arrTask);
-       // return(alert('Изменение сохранилось! '+ jsonText2));
+        return(alert('Изменение сохранилось! '+ jsonText2));
     };
    // debugger;

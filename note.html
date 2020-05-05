@@ -20,7 +20,12 @@
                 </div>
             </div>
             <div class="column right">
-                <div id="info" class="info_task">Старый текст</div>
+                <div id = "buttonInfo" class="button_info_not_active">
+                    <input id ="infochangeStatus" class="infobutton" type="button" value="Status" onclick="changeStatus()"> 
+                    <input id ="infoSendMail" class="infobutton" type="button" value="Send" onclick="sendMail()"> 
+                    <input id ="infoSave" class="infobutton" type="button" value="Изменить" onclick="changeInfo()">  
+                </div>
+                <div id="info" class="info_task"></div>
             </div>            
         </div>
     </div>

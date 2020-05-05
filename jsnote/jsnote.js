@@ -270,6 +270,9 @@ debugger;
             
             ){
               if(event.target.id.match('[0-9]')){
+              //let idTask = document.getElementById(event.target.id); 
+              //let active = "newTaskId--active";
+              //idTask.classList.add(active); 
           
               openTaskInfo(event.target.id); 
               onclickTask = event.target.id;               

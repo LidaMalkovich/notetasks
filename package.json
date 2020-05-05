@@ -1,0 +1,15 @@
+{
+  "name": "note",
+  "version": "1.0.0",
+  "description": "Note project",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "pg": "^7.18.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LidaMalkovich/notetasks"
+  },
+  "license": "BSD-3-Clause"
+}

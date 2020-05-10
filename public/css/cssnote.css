@@ -1,0 +1,190 @@
+body{
+    background-color: rgba(53, 38, 66, 1);
+}
+.note{
+
+    height: 500pt; 
+
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 10%;
+   
+}
+.note_head{
+
+    background-color: rgba(64, 57, 79, 1);
+}
+.note_body{
+    height: 100%;
+    width: 100%;
+    background-color:rgba(118, 94, 170, 1);
+    border: 2px solid rgba(70, 55, 102, 1);
+    display: flex;
+}
+.column{
+    float: left;
+    padding: 10px;
+    height:100%;
+
+}
+.left {
+    width: 25%;
+    min-width: 20px;
+    background-color:rgba(199, 182, 236, 1);
+    /* overflow-y:auto;
+    overflow-x: hidden; */
+  }  
+.right {
+    width: 75%;
+    min-width: 20px;
+    background-color: rgba(64, 57, 79, 1);
+    overflow-y:auto;
+    overflow-x: hidden;
+}
+
+.addTask{
+	box-shadow: 0px 0px 0px 2px #9fb4f2;
+	background:linear-gradient(to bottom, rgba(132, 111, 177, 1) 5%, #476e9e 100%);
+	background-color:rgba(132, 111, 177, 1);
+	border-radius:2px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+    width: 100%;
+    height: 100%;
+    min-height: 20pt;
+    max-height: 40pt;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+}
+.addTask:hover {
+	background:linear-gradient(to bottom, rgba(76, 62, 106, 1) 5%, rgba(132, 111, 177, 1)100%);
+    background-color:rgba(76, 62, 106, 1);
+ 
+}
+.addTask:active {
+	position:relative;
+	top:1px;
+}
+.modalTask{
+    display: none;
+    z-index: 1;
+    overflow: auto;
+    width: 500pt;
+    height: 500pt;
+    background-color:rgba(64, 57, 79, 1);
+}
+.newTaskId{
+    /* background-color: black; */
+    width: 100%;
+    height: 100%;
+    min-height: 20pt;
+    max-height: 40pt;   
+    color: white; 
+    margin: 1%;
+    border: 0.5px solid rgba(117, 0, 163);
+    /* box-shadow: 0 0 10px 2px rgba(254, 247, 255); */
+    box-shadow:
+    inset rgba(216, 210, 217) 0 -3px 8px,
+    inset rgba(254, 247, 255)0 3px 8px,
+    rgba(216, 210, 217) 0 3px 8px -3px;
+  
+}
+.newTaskId--active{
+    width: 100%;
+    height: 100%;
+    min-height: 20pt;
+    max-height: 40pt;   
+    color: black; 
+    background-color:rgba(250, 240, 250);
+    margin: 1%;
+    border: 0.5px solid rgba(70, 55, 102, 1);     
+}
+.TaskList{
+    list-style-type: square;
+    width: 100%;
+    height: 100%;
+    min-width: 20pt;
+    max-width: 150pt;
+    margin: 5%;
+}
+
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 10; 
+}
+.context-menu--active {
+    display: block;
+}
+.context-delete{
+    color:white;
+    font-family:Arial;
+    font-size: 8pt;
+    border: 1px solid rgba(250, 240, 250); 
+    background-color: rgba(64, 57, 79, 1); 
+}
+.context-update{
+    color:white;
+    font-family:Arial;
+    font-size: 8pt;
+    border: 1px solid rgba(250, 240, 250);  
+    background-color: rgba(64, 57, 79, 1);
+
+}
+
+.info_task{
+    color: white;
+    font-size: 15pt;
+    margin-top: 10pt;
+}
+.info_task--active{
+    color: black;
+    background-color: rgba(250, 240, 250);
+    font-size: 15pt;
+    margin-top: 10pt;
+    height: 100%;
+
+}
+
+.button_info_not_active{
+    display: none;
+}
+
+.button_info{
+    height: 20pt;
+    background-color:  rgba(64, 57, 79, 1);
+}
+.infobutton{
+    width: 80pt;
+    height: 20pt;
+     float : right;
+    margin-left: 10pt;
+	box-shadow: 0px 0px 0px 2px #9fb4f2;
+	background:linear-gradient(to bottom, rgba(132, 111, 177, 1) 5%, #476e9e 100%);
+	background-color:rgba(132, 111, 177, 1);
+	border-radius:2px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+}
+.infobutton_not_active{
+    width: 80pt;
+    height: 20pt;
+    float : right; 
+    margin-left: 10pt;
+	box-shadow: 0px 0px 0px 2px grey;
+	/* background:linear-gradient(to bottom, rgba(132, 111, 177, 1) 5%, grey 100%); */
+	background-color:grey;
+	border-radius:2px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+}

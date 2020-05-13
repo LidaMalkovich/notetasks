@@ -1,7 +1,4 @@
     'use strict'
-  //import {jsonFromDB} from '../../connect_localhost.js'; 
-  //console.log('jsonFromDB'+ jsonFromDB);
-  //debugger;
 
   const jsonText1 =  `[
       {
@@ -21,8 +18,7 @@
         "order":"2"
       }
     ]`;
-
-
+ 
 
     const ListTasks = document.getElementById('Tasks');
     let menuState = 0;

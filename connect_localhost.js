@@ -3,6 +3,12 @@
 var express = require('express');
 var path = require('path');
 const http = require('http');
+const bodyParser = require('body-parser');
+const authdatabase = require('./routes/connectdb.js'); 
+
+
+
+
 // создаём Express-приложение
 var app = express();
 
@@ -10,25 +16,39 @@ const postRouter = require('./routes/post.js');
 
 const JsonText = require('./public/js/jsData.js');
 
-console.log('JsonText'+ String(JsonText));
+
 
 
 // Окно авторизации
 // http://localhost:8080/
-app.get('/', function(req, res) {
-  res.sendfile('authorization.html');
-});
+
 //Переход основное приложение
 app.get('/note', function(req, res) {
   res.sendfile('note.html');
 });
 
+app.set('view engine', 'ejs');
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
-const { Client } = require('pg');
-const connectionString = 'postgres://postgres:postgres@localhost:5432/database_note';
-const client = new Client({
-    connectionString: connectionString
+app.get('/', (req, res)=> res.render('index'));
+
+app.post('/about', urlencodedParser, function(req, res){
+	if (!req.body) return res.sendStatus(400);
+  console.log(req.body);
+  console.log(req.body.username);
+  console.log(req.body.password);
+
+  const sql = "SELECT * FROM note.users where name ='"+ req.body.username +"' and password::text ='"+ req.body.password +"'";
+  console.log(sql);
+  authdatabase.query(sql,  function(err, results) {
+    if(err) console.log(err);
+    const users = results.rows;
+    console.log('users.length '+ users.length);
+    if(users.length === 0) res.sendfile('index');    
+    res.sendfile('note.html');
+  });
+	
 });
 
 
@@ -46,35 +66,6 @@ app.use('/api/post', postRouter);
 
 // запускаем сервер на порту 8080
 app.listen(8080);
-
-
-
-
-
-//app.set('port', process.env.PORT || 4000);
-/*
-client.connect(function(err) {
-  if (err) throw err;
-  client.query("SELECT * FROM note.tasks where id = $1", [1], function (err, result) {
-    if (err) throw err;
-    console.log(result);
-    console.log(result.fields);
-  
-    let jsonFromDB = result.fields
-    module.exports = jsonFromDB;
-  });
-});
-*/
-function selectTasks(){
-  client.connect(function(err) {
-    client.query("SELECT * FROM note.tasks where id = $1", [1], function (err, result) {
-      if (err) throw err;
-      console.log(result.fields);
-      return result.fields;
-      
-    });
-  });
-};
 
 
 

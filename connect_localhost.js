@@ -1,16 +1,12 @@
 
 // берём Express
 var express = require('express');
+var app = express();
 var path = require('path');
+
 const http = require('http');
 const bodyParser = require('body-parser');
 const authdatabase = require('./routes/connectdb.js'); 
-
-
-
-
-// создаём Express-приложение
-var app = express();
 
 const postRouter = require('./routes/post.js');
 
@@ -31,7 +27,7 @@ app.set('view engine', 'ejs');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
-app.get('/', (req, res)=> res.render('index'));
+app.get('/', (req, res)=> res.render('authorization'));
 
 app.post('/about', urlencodedParser, function(req, res){
 	if (!req.body) return res.sendStatus(400);
@@ -45,12 +41,36 @@ app.post('/about', urlencodedParser, function(req, res){
     if(err) console.log(err);
     const users = results.rows;
     console.log('users.length '+ users.length);
-    if(users.length === 0) res.sendfile('index');    
-    res.sendfile('note.html');
+    if(users.length === 0){
+      res.render('reauthorization');
+    }else{  
+      res.sendfile('note.html');
+    }
   });
 	
 });
 
+
+
+app.post('/registrate', urlencodedParser, function(req, res){
+  if (!req.body) return res.sendStatus(400);
+  res.render('registration');
+});
+app.post('/createuser', urlencodedParser, function(req, res){
+	if (!req.body) return res.sendStatus(400);
+  console.log(req.body);
+  console.log(req.body.username);
+  console.log(req.body.password);
+
+  const sql = "INSERT INTO note.users(name,password) VALUES('"+ req.body.username +"',"+ req.body.password +")";
+  console.log(sql);
+  authdatabase.query(sql,  function(err, results) {
+    if (!req.body) return res.sendStatus(400);
+    console.log(req.body.username);
+    res.sendfile('note.html');
+  });
+	
+});
 
 
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Authorization</title>
+  <link href="./css/authorization.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/public/css/authorization.css">
+
+ </head> 
+ <body> 
+	<div class="main-authorization">
+        <div class="top-authorization"></div>
+		<form method="post" action="/about">
+			<div class="formgroup">
+			    <input type="text" name="username" class="form-control" id="username"  placeholder="Username">
+			</div>
+			<div class="formgroup">
+			    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <div class="formgroup_button">
+                <button type="submit" class="enter_button">Enter</button>
+            </div>
+        </form>
+        <form method="post" action="/registrate">
+            <div class="formgroup_button">
+                <button type="submit" class="enter_button">Registration</button>
+            </div>
+    </form>
+	</div>
+ </body>
+</html>
+

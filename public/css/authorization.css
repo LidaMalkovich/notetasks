@@ -36,6 +36,14 @@ body {
     margin-left: 35%;   
 
 }
+.formgroup_attention{
+    margin-bottom: 10rem;
+    width: 300px;
+    height: 30px;  
+    color: white;
+
+
+}
 .enter_button{
     width: 100px;
     height: 30px; 

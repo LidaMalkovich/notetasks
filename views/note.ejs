@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title><%= data %> </title>
+    <link rel="stylesheet" type="text/css" href="/public/css/cssnote.css">
+</head> 
+<script>
+
+const data = '<%= data %>';
+console.log(data);
+ </script>
+<body> 
+    <div class="note">
+        <div class="note_head"></div>
+        <div class="note_body">
+            <div class="column left">
+                <div class="add_button">                
+                    <input id ="newTask" class="addTask" type="button" value="+ create task" onclick="openModal()">                     
+                </div>                   
+                    <div id = "Tasks" class ="TaskList"> 
+                        <ul class="context-menu">  
+                            <li class="context-update" onclick = "changeTheme()">Редактировать</li>
+                            <li class="context-delete" onclick = "deleteTask()">Удалить</li>
+                        </ul>                   
+                </div>
+            </div>
+            <div class="column right">
+                <div id = "buttonInfo" class="button_info_not_active">
+                    <input id ="infochangeStatus" class="infobutton" type="button" value="Status" onclick="changeStatus()"> 
+                    <input id ="infoSendMail" class="infobutton" type="button" value="Send" onclick="sendMail()"> 
+                    <input id ="infoSave" class="infobutton" type="button" value="Изменить" onclick="changeInfo()">  
+                </div>
+                <div id="info" class="info_task"></div>
+            </div>            
+        </div>
+    </div>
+    <script src="/public/js/jsnote.js">
+    </script>
+
+</body>
+</html>

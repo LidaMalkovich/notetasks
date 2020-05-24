@@ -10,7 +10,6 @@ const authdatabase = require('./routes/connectdb.js');
 
 const postRouter = require('./routes/post.js');
 
-const JsonText = require('./public/js/jsData.js');
 
 
 
@@ -24,10 +23,13 @@ app.get('/note', function(req, res) {
 });
 
 app.set('view engine', 'ejs');
+app.use(bodyParser())
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 app.get('/', (req, res)=> res.render('authorization'));
+
+
 
 app.post('/about', urlencodedParser, function(req, res){
 	if (!req.body) return res.sendStatus(400);
@@ -36,18 +38,22 @@ app.post('/about', urlencodedParser, function(req, res){
   console.log(req.body.password);
 
   const sql = "SELECT * FROM note.users where name ='"+ req.body.username +"' and password::text ='"+ req.body.password +"'";
-  console.log(sql);
-  authdatabase.query(sql,  function(err, results) {
+ 
+  authdatabase.query(sql,  function(err, result) {
     if(err) console.log(err);
-    const users = results.rows;
+    console.log(result);
+    const users = result.rows;
+
     console.log('users.length '+ users.length);
+  
     if(users.length === 0){
       res.render('reauthorization');
     }else{  
-      res.sendfile('note.html');
+      const dataUser = result.rows[0].info;
+
+      res.render('note', {data: dataUser });
     }
   });
-	
 });
 
 
@@ -67,11 +73,11 @@ app.post('/createuser', urlencodedParser, function(req, res){
   authdatabase.query(sql,  function(err, results) {
     if (!req.body) return res.sendStatus(400);
     console.log(req.body.username);
-    res.sendfile('note.html');
+    //res.sendfile('note.html');
+    res.render('note');
   });
 	
 });
-
 
 
 
@@ -79,7 +85,7 @@ app.post('/createuser', urlencodedParser, function(req, res){
 app.use('/public', express.static('public'));
 app.use('/', express.static('public'));
 //Подлючаем бд
-app.use('/api/post', postRouter);
+//app.use('/api/post', postRouter);
 
 
 

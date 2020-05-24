@@ -18,8 +18,10 @@
         "order":"2"
       }
     ]`;
- 
 
+   
+    const data;
+    console.log('data2'+ data);
     const ListTasks = document.getElementById('Tasks');
     let menuState = 0;
     var taskItemClassName = 'newTaskId';

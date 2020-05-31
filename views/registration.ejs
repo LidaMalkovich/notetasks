@@ -16,8 +16,19 @@
 			<div class="formgroup">
 			    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
             </div>
+            <div class="formgroup">
+			    <input type="email" name="email" id="email"  class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Email">
+            </div>
+            <div class="formgroup">
+			    <input type="tel" name="tel" id="tel" class="form-control" placeholder="Telephone">
+            </div>
             <div class="formgroup_button">
                 <button type="submit" class="enter_button">Enter</button>
+            </div>
+            <div>
+                <% if(err){ %>
+                    <div class="message_error" ><%= data %></div>
+                  <% }%>
             </div>
 		</form>
 	</div>

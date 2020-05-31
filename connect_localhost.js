@@ -1,14 +1,12 @@
 
-// берём Express
+
 var express = require('express');
 var app = express();
-var path = require('path');
 
-const http = require('http');
 const bodyParser = require('body-parser');
 const authdatabase = require('./routes/connectdb.js'); 
 
-const postRouter = require('./routes/post.js');
+
 
 
 
@@ -29,7 +27,22 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.get('/', (req, res)=> res.render('authorization'));
 
-
+app.post('/save', function(req, res){
+  const upInfo = req.body.jsonText2;
+  const upId = Number(req.body.idUser);
+  console.log(upId);
+  console.log(upInfo);
+  const sql = "update note.users set info = '"+ upInfo +"' where  id = "+ upId;
+console.log(sql);
+  authdatabase.query(sql)
+    .then(result =>{
+      console.log(result[0]);
+      console.log('зашло!');
+    })
+    .catch(err =>{
+      console.log(err);
+    }); 
+});
 
 app.post('/about', urlencodedParser, function(req, res){
 	if (!req.body) return res.sendStatus(400);
@@ -50,8 +63,10 @@ app.post('/about', urlencodedParser, function(req, res){
       res.render('reauthorization');
     }else{  
       const dataUser = result.rows[0].info;
-
-      res.render('note', {data: dataUser });
+      const idUser = result.rows[0].id;
+      res.render('note', {data: dataUser, idUser: idUser});
+      console.log('dataUser'+ JSON.stringify(dataUser));
+      console.log('idUser'+ JSON.stringify(idUser));
     }
   });
 });
@@ -60,23 +75,28 @@ app.post('/about', urlencodedParser, function(req, res){
 
 app.post('/registrate', urlencodedParser, function(req, res){
   if (!req.body) return res.sendStatus(400);
-  res.render('registration');
+  //res.render('registration');
+
+  res.render('registration', {data: '', err: false});
 });
+
+
 app.post('/createuser', urlencodedParser, function(req, res){
 	if (!req.body) return res.sendStatus(400);
   console.log(req.body);
   console.log(req.body.username);
   console.log(req.body.password);
 
-  const sql = "INSERT INTO note.users(name,password) VALUES('"+ req.body.username +"',"+ req.body.password +")";
+  const sql = "INSERT INTO note.users(name,password,mail, telephone) VALUES('"+ req.body.username +"',"
+  + req.body.password +", '"+ req.body.email +"',  '"+ req.body.tel +"')";
   console.log(sql);
-  authdatabase.query(sql,  function(err, results) {
-    if (!req.body) return res.sendStatus(400);
-    console.log(req.body.username);
-    //res.sendfile('note.html');
-    res.render('note');
-  });
-	
+  authdatabase.query(sql)
+    .then(result =>{   
+      res.render('authorization');
+    })
+    .catch(err =>{  
+      res.render('registration', {data: 'Пользователь с таким логином уже существует!', err: true});
+    }); 	
 });
 
 
@@ -84,8 +104,7 @@ app.post('/createuser', urlencodedParser, function(req, res){
 //Подключаю css и js
 app.use('/public', express.static('public'));
 app.use('/', express.static('public'));
-//Подлючаем бд
-//app.use('/api/post', postRouter);
+
 
 
 

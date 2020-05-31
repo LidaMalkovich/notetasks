@@ -20,8 +20,7 @@
     ]`;
 
    
-    const data;
-    console.log('data2'+ data);
+
     const ListTasks = document.getElementById('Tasks');
     let menuState = 0;
     var taskItemClassName = 'newTaskId';
@@ -279,7 +278,7 @@ debugger;
               onclickTask = event.target.id;               
             }
           }
-    debugger;
+  //  debugger;
             if ( button === 1 ) {
               closeContextMenu();
               }

@@ -14,18 +14,34 @@
                 </div>                   
                     <div id = "Tasks" class ="TaskList"> 
                         <ul class="context-menu">  
-                            <li class="context-update" onclick = "changeTheme()">Редактировать</li>
+                            <!-- <li class="context-update" ondblclick = "changeTheme()">Редактировать</li> -->
                             <li class="context-delete" onclick = "deleteTask()">Удалить</li>
                         </ul>                   
                 </div>
             </div>
-            <div class="column right">
+            <div class="column right">                
                 <div id = "buttonInfo" class="button_info_not_active">
                     <input id ="infochangeStatus" class="infobutton" type="button" value="Status" onclick="changeStatus()"> 
                     <input id ="infoSendMail" class="infobutton" type="button" value="Send" onclick="sendMail()"> 
-                    <input id ="infoSave" class="infobutton" type="button" value="Изменить" onclick="changeInfo()">  
-                </div>
-                <div id="info" class="info_task"></div>
+                    <input id ="infoSave" class="infobutton" type="button" value="Изменить" onclick="changeInfo()">
+                    <form name="fonts">
+                        <select name="font" id="fonts" class="infobutton">
+                            <option value="1">cursive</option>
+                            <option value="2">serif</option>
+                            <option value="3">arial</option>
+                            <option value="4">cambria</option>
+                            <option value="5">candara</option>
+                            <option value="6">century gothic</option>
+                            <option value="7">fantasy</option>
+                            <option value="8">chasm</option>
+                            <option value="9">chicago</option>
+                            <option value="10">colonna mt</option>
+                        </select>
+                    </form>                     
+                </div>       
+                <div id="info" class="info_task"><pre></pre></div>       
+             
+
             </div>            
         </div>
     </div>
@@ -56,6 +72,7 @@
       div.id = Number(task.id);
       div.className = "newTaskId";
       div.contentEditable = "false";
+      div.ondblclick = 
       div.innerHTML = task.theme;
       ListTasks.append(div);  
       arrTask.push(task);   
@@ -200,6 +217,7 @@ function openTaskInfo(taskId){
       let active = "info_task--active";  
       let buttonchangeStatus =  document.getElementById('infochangeStatus'); 
       let buttoninfoSend = document.getElementById('infoSendMail'); 
+    
 
 
         //Добавить проверку на нажатие задачи!!!!!!!!!
@@ -213,6 +231,7 @@ function openTaskInfo(taskId){
           buttoninfoSend.disabled = true;
           buttonchangeStatus.classList.add("infobutton_not_active"); 
           buttoninfoSend.classList.add("infobutton_not_active"); 
+
 
         }else{
 
@@ -241,8 +260,19 @@ function openTaskInfo(taskId){
 
     return alert('Почта ?');
   };
+/*Список шрифтов*/
+let fontsSelect = fonts.font;
 
+function changefont(){    
+  
+    let selectedOption = fontsSelect.options[fontsSelect.selectedIndex];
+    
+    console.log(selectedOption.text);
+    let elemInfo = document.getElementById('info');
+    elemInfo.style.fontFamily = selectedOption.text;
+}
 
+fontsSelect.addEventListener("change", changefont);
 //
 function SaveInfo(){
   let idTask = onclickTask;
@@ -279,30 +309,24 @@ document.querySelectorAll("context").forEach(function(el){
   /*Действие клика на нажатие на div */
   document.querySelectorAll("div").forEach(function(el){
     el.addEventListener( "click", function(e) {
-          var button = e.which || e.button;
-  
-       
-   
-          if(this.tagName=='DIV' && this.id !='buttonInfo' && event.target.id != 'infoSave'
-          
-          ){
+        var button = e.which || e.button;      
+    
+        if(this.tagName=='DIV' && this.id !='buttonInfo' && event.target.id != 'infoSave')
+        {
             if(event.target.id.match('[0-9]')){
-            //let idTask = document.getElementById(event.target.id); 
-            //let active = "newTaskId--active";
-            //idTask.classList.add(active); 
-        
-            openTaskInfo(event.target.id); 
-            onclickTask = event.target.id;               
-          }
-        }
-//  debugger;
-          if ( button === 1 ) {
-            closeContextMenu();
+                // let idTask = document.getElementById(event.target.id); 
+                // let active = "newTaskId--active";
+                // idTask.classList.add(active); 
+            
+                openTaskInfo(event.target.id); 
+                onclickTask = event.target.id;               
             }
-          
-            // debugger;
-        });  
-    });
+        }
+        if (button === 1) {
+            closeContextMenu();
+        }     
+    });  
+});
 
 
 

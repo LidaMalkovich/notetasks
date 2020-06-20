@@ -16,7 +16,7 @@ body{
     background-color: rgba(64, 57, 79, 1);
 }
 .note_body{
-    height: 100%;
+    height: 70%;
     width: 100%;
     background-color:rgba(118, 94, 170, 1);
     border: 2px solid rgba(70, 55, 102, 1);
@@ -66,7 +66,7 @@ body{
  
 }
 .addTask:active {
-	position:relative;
+	/* position:absolute; */
 	top:1px;
 }
 .modalTask{
@@ -78,6 +78,7 @@ body{
     background-color:rgba(64, 57, 79, 1);
 }
 .newTaskId{
+    position: relative;
     /* background-color: black; */
     width: 100%;
     height: 100%;
@@ -101,7 +102,8 @@ body{
     color: black; 
     background-color:rgba(250, 240, 250);
     margin: 1%;
-    border: 0.5px solid rgba(70, 55, 102, 1);     
+    border: 0.5px solid rgba(70, 55, 102, 1);  
+    position: relative;   
 }
 .TaskList{
     list-style-type: square;
@@ -115,7 +117,8 @@ body{
 .context-menu {
     display: none;
     position: absolute;
-    z-index: 10; 
+    z-index: 10;
+    left: 20%;
 }
 .context-menu--active {
     display: block;
@@ -126,6 +129,7 @@ body{
     font-size: 8pt;
     border: 1px solid rgba(250, 240, 250); 
     background-color: rgba(64, 57, 79, 1); 
+    list-style-type: none;
 }
 .context-update{
     color:white;
@@ -133,25 +137,31 @@ body{
     font-size: 8pt;
     border: 1px solid rgba(250, 240, 250);  
     background-color: rgba(64, 57, 79, 1);
-
+    list-style-type: none;
 }
 
 .info_task{
     color: white;
     font-size: 15pt;
     margin-top: 10pt;
+    height: 300px;
 }
 .info_task--active{
     color: black;
     background-color: rgba(250, 240, 250);
     font-size: 15pt;
     margin-top: 10pt;
-    height: 100%;
-
+    height: 300px;
 }
-
+.footer_task{
+    color: white;
+    font-size: 15pt;  
+    height: 100px; 
+    margin-bottom: 0em;  
+}
 .button_info_not_active{
     display: none;
+    height: 20pt;
 }
 
 .button_info{
@@ -161,7 +171,7 @@ body{
 .infobutton{
     width: 80pt;
     height: 20pt;
-     float : right;
+    float: right;
     margin-left: 10pt;
 	box-shadow: 0px 0px 0px 2px #9fb4f2;
 	background:linear-gradient(to bottom, rgba(132, 111, 177, 1) 5%, #476e9e 100%);
@@ -176,7 +186,7 @@ body{
 .infobutton_not_active{
     width: 80pt;
     height: 20pt;
-    float : right; 
+    float: right; 
     margin-left: 10pt;
 	box-shadow: 0px 0px 0px 2px grey;
 	/* background:linear-gradient(to bottom, rgba(132, 111, 177, 1) 5%, grey 100%); */
